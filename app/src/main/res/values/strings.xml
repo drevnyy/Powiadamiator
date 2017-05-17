@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Powiadamiator</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_activities_in_day">ActivitiesInDay</string>
+    <string name="action_settings">Settings</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+    <string name="title_activity_all_subjects">AllSubjects</string>
+    <string name="title_activity_all_subjectss">AllSubjectss</string>
+    <string name="title_activity_subject_details">SubjectDetails</string>
+    <string name="title_activity_add_termin_from_days">AddTerminFromDays</string>
+    <string name="title_activity_add_termin_from_subject">AddTerminFromSubject</string>
+</resources>
