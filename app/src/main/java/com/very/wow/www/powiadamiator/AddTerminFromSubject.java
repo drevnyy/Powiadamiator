@@ -49,7 +49,7 @@ public static String hour;
                 EditText et2 = (EditText) findViewById(R.id.editText11);
                 EditText et4 = (EditText) findViewById(R.id.editText12);
                 String[] datep =  et.getText().toString().split("-");
-                Terminy.I.AddTermin(name,et5.getText().toString(),new Date(Integer.parseInt(datep[0])-1900,Integer.parseInt(datep[1]),Integer.parseInt(datep[2]),
+                Terminy.I.AddTermin(name,et5.getText().toString(),new Date(Integer.parseInt(datep[0])-1900,Integer.parseInt(datep[1])-1,Integer.parseInt(datep[2]),
                         Integer.parseInt(et2.getText().toString()),Integer.parseInt(et4.getText().toString())));
                 finish();
             }

@@ -58,7 +58,7 @@ public class Przedmioty {
             for(Termin ter: Terminy.I.lista) {
                 ct.setTime(ter.Data);
 
-                boolean sameDay = ct.get(Calendar.DAY_OF_WEEK) == cp.get(Calendar.DAY_OF_WEEK) &&
+                boolean sameDay = ct.get(Calendar.DAY_OF_WEEK) == cdata.get(Calendar.DAY_OF_WEEK) &&
                                 cdata.get(Calendar.DAY_OF_MONTH) == ct.get(Calendar.DAY_OF_MONTH);
                 if(sameDay)
                 {

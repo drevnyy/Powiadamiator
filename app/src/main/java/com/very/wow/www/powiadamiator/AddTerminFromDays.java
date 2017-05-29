@@ -36,7 +36,7 @@ public static Date d;
                 EditText et4 = (EditText) findViewById(R.id.editText12);
                 TextView date = (TextView) findViewById(R.id.textView50);
                 String[] datep =  date.getText().toString().split("-");
-                Terminy.I.AddTermin(et.getText().toString(),et5.getText().toString(),new Date(Integer.parseInt(datep[0])-1900,Integer.parseInt(datep[1]),Integer.parseInt(datep[2]),
+                Terminy.I.AddTermin(et.getText().toString(),et5.getText().toString(),new Date(Integer.parseInt(datep[0])-1900,Integer.parseInt(datep[1])-1,Integer.parseInt(datep[2]),
                         Integer.parseInt(et2.getText().toString()),Integer.parseInt(et4.getText().toString())));
                 finish();
             }
