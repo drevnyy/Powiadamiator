@@ -32,7 +32,7 @@ public class Terminy {
 
     public Terminy()
     {
-        lista.add(new Termin(new Date(117,5,21,14,42),"ech","wow"));
+        Gettetrminy();
     }
 
     void AddTermin(String nazwa, String komentarz, Date godzina)
@@ -44,12 +44,8 @@ public class Terminy {
 
     private void SaveChanges() {
         // Get the directory for the user's public pictures directory.
-        final File path =
-                Environment.getExternalStoragePublicDirectory
-                        (
-                                //Environment.DIRECTORY_PICTURES
-                                Environment.DIRECTORY_DCIM + "/YourFolder/"
-                        );
+
+        final File path = new File(Environment.getExternalStorageDirectory(),"folder");
 
         // Make sure the path directory exists.
         if(!path.exists())
@@ -86,13 +82,8 @@ public class Terminy {
 
     void Gettetrminy() {
         // Get the directory for the user's public pictures directory.
-        final File path =
-                Environment.getExternalStoragePublicDirectory
-                        (
-                                //Environment.DIRECTORY_PICTURES
-                                Environment.DIRECTORY_DCIM + "/YourFolder/"
-                        );
 
+        final File path = new File(Environment.getExternalStorageDirectory(),"folder");
         // Make sure the path directory exists.
         if (!path.exists()) {
             // Make it, if it doesn't exit
@@ -106,6 +97,7 @@ public class Terminy {
             try {
                 BufferedReader br = new BufferedReader(new FileReader(file));
                 try {
+                    lista.clear();
                     String line = br.readLine();
 
                     while (line != null) {

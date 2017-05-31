@@ -19,7 +19,7 @@ public DzienTygodnia dzienTygodnia;
     public Przedmiot() {
     }
     public String ToCsv() {
-        return new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(Godzina)+";"+dzienTygodnia+";"+Nazwa;
+        return new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(Godzina)+";"+dzienTygodnia+";"+Nazwa+"\r\n";
     }
 
     public static Przedmiot FromCSV(String line) {

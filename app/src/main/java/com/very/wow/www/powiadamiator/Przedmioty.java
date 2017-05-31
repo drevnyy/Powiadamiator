@@ -5,6 +5,7 @@ import android.os.Environment;
 import android.text.format.DateUtils;
 
 import java.io.BufferedReader;
+import java.io.Console;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -29,30 +30,37 @@ public class Przedmioty {
     public static final Przedmioty I = new Przedmioty();
     public Przedmioty()
     {
-
-
         GetSubjects();
-        lista.add(new Przedmiot(new Date(117,05,14,14,42,22),DzienTygodnia.Niedziela,"wasd"));
     }
     public ArrayList<Termin> GetScheduleForDay(Date data, DzienTygodnia dzien)
     {
         ArrayList<Termin> terminy = new ArrayList<>();
 
+        GetSubjects();
         ArrayList<Przedmiot> przedmiotyTegoDnia = new ArrayList<>();
 
         przedmiotyTegoDnia.addAll(SelectForDay(dzien));
-        terminy.addAll(AddNotifications(data, przedmiotyTegoDnia));
+        terminy.addAll(przedmiotToTermin(data,przedmiotyTegoDnia));
+        terminy.addAll(AddNotifications(data));
         return terminy;
     }
 
-    private Collection<? extends Termin> AddNotifications(Date data, ArrayList<Przedmiot> przedmiotyTegoDnia) {
+    private Collection<? extends Termin> przedmiotToTermin(Date data,ArrayList<Przedmiot> przedmiotyTegoDnia) {
+        ArrayList<Termin> terminy = new ArrayList<>();
+
+        for(Przedmiot p: przedmiotyTegoDnia)
+        {
+            terminy.add(new Termin(new Date(data.getYear()-1900,data.getMonth(),data.getDay(),p.Godzina.getHours(),p.Godzina.getMinutes(),0),p.Nazwa," "));
+        }
+
+        return terminy;
+    }
+
+    private Collection<? extends Termin> AddNotifications(Date data) {
         ArrayList<Termin> t = new ArrayList<>();
         Calendar cdata = Calendar.getInstance();
         cdata.setTime(data);
-        for (Przedmiot x : przedmiotyTegoDnia)
-        {
-            Calendar cp = Calendar.getInstance();
-            cp.setTime(x.Godzina);
+
             Calendar ct = Calendar.getInstance();
 
             for(Termin ter: Terminy.I.lista) {
@@ -65,7 +73,7 @@ public class Przedmioty {
                         t.add(new Termin(ter.Data, ter.Nazwa, ter.Komentarz));
                 }
             }
-        }
+
         return t;
     }
 
@@ -112,26 +120,18 @@ public class Przedmioty {
 
     private void SaveChanges() {
         // Get the directory for the user's public pictures directory.
-        final File path =
-                Environment.getExternalStoragePublicDirectory
-                        (
-                                //Environment.DIRECTORY_PICTURES
-                                Environment.DIRECTORY_DCIM + "/YourFolder/"
-                        );
-
-        // Make sure the path directory exists.
-        if(!path.exists())
-        {
-            // Make it, if it doesn't exit
-            path.mkdirs();
-        }
+        final File path = new File(Environment.getExternalStorageDirectory(),"folder");
 
         final File file = new File(path, "config.txt");
 
-
-
         try
         {
+            if(!file.getParentFile().mkdirs())
+            {
+                if(file.getParentFile().isDirectory()) {
+                    boolean lel = file.canWrite();
+                }
+            }
             if(file.exists())
                 file.delete();
             file.createNewFile();
@@ -147,18 +147,12 @@ public class Przedmioty {
         }
         catch (IOException e)
         {
-
+            e.printStackTrace();
         }
     }
-
     void GetSubjects() {
         // Get the directory for the user's public pictures directory.
-        final File path =
-                Environment.getExternalStoragePublicDirectory
-                        (
-                                //Environment.DIRECTORY_PICTURES
-                                Environment.DIRECTORY_DCIM + "/YourFolder/"
-                        );
+        final File path = new File(Environment.getExternalStorageDirectory(),"folder");
 
         // Make sure the path directory exists.
         if (!path.exists()) {
@@ -171,11 +165,13 @@ public class Przedmioty {
 
         if (file.exists()) {
             try {
+                lista.clear();
                 BufferedReader br = new BufferedReader(new FileReader(file));
                 try {
                     String line = br.readLine();
 
                     while (line != null) {
+                        if(line.length()>3)
                         lista.add(Przedmiot.FromCSV(line));
                         line = br.readLine();
                     }

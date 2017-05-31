@@ -34,7 +34,7 @@ public class Termin {
 
     }
     public String ToCsv() {
-        return new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(Data)+";"+Nazwa+";"+Komentarz;
+        return new SimpleDateFormat("yyyy/MM/dd HH:mm:ss").format(Data)+";"+Nazwa+";"+Komentarz+"\r\n";
     }
 
 }
